@@ -105,7 +105,7 @@ your-project/
         "considerations": ["Edge cases", "Dependencies"]
       },
       "steps": ["Step 1", "Step 2"],
-      "passes": ["Acceptance criteria 1", "Criteria 2"]
+      "passes": false
     }
   ]
 }

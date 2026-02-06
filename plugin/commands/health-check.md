@@ -40,7 +40,12 @@ Verify each task has:
 - [ ] `description` - what to build
 - [ ] `context` - problem/solution/benefit
 - [ ] `steps` - implementation steps
-- [ ] `passes` - completion status (boolean)
+- [ ] `passes` - completion status (boolean: `true` or `false`, NOT an array)
+
+**Type Validation**:
+- `passes` MUST be a boolean (`true` or `false`)
+- If `passes` is an array, string, or any other type, report an error
+- Error message: "Invalid passes type: expected boolean, got <actual-type>"
 
 ### Project Setup
 
@@ -129,6 +134,7 @@ For each issue found, provide a fix suggestion:
 | No tech stack | Add `## Tech Stack` section to CLAUDE.md |
 | No feedback loops | Add `## Feedback Loops` section |
 | Invalid prd.json | Show specific validation errors |
+| `passes` is not a boolean | Change `"passes": [...]` to `"passes": false` or `"passes": true` |
 
 ## Usage
 

@@ -33,6 +33,7 @@ type[optional scope][optional !]: description
 - Format: `Token: value`
 - **Always include `Refs: INS-XXX`** if ticket found in branch name (e.g., `chore/INS-123`)
 - Breaking changes: `BREAKING CHANGE: description`
+- **Never include `Co-Authored-By: Claude` or similar AI attribution**
 
 ## Type Guide
 
