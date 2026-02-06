@@ -1,0 +1,27 @@
+{
+  "name": "ralph-sandbox",
+  "version": "1.0.0",
+  "description": "Ralph Sandbox - Autonomous coding loops with Docker AI Sandboxes",
+  "author": "Brad",
+  "homepage": "",
+  "skills": [
+    "./plugin/skills/"
+  ],
+  "commands": [
+    "./plugin/commands/"
+  ],
+  "agents": [
+    "./plugin/agents/code-reviewer.md",
+    "./plugin/agents/security-reviewer.md",
+    "./plugin/agents/tdd-guide.md",
+    "./plugin/agents/planner.md",
+    "./plugin/agents/architect.md",
+    "./plugin/agents/build-error-resolver.md",
+    "./plugin/agents/refactor-cleaner.md",
+    "./plugin/agents/doc-updater.md",
+    "./plugin/agents/e2e-runner.md"
+  ],
+  "rules": [
+    "./plugin/rules/"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ralph-sandbox",
+  "description": "Local marketplace for Ralph Sandbox plugin",
+  "plugins": [
+    {
+      "name": "ralph-sandbox",
+      "description": "Ralph Sandbox - Autonomous coding loops with Docker AI Sandboxes",
+      "source": "./"
+    }
+  ]
+}
