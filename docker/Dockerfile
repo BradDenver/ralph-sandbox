@@ -20,6 +20,7 @@ cp -r /opt/ralph-plugin/plugin/rules/* ~/.claude/rules/ 2>/dev/null || true\n\
 mkdir -p ~/bin\n\
 cp /opt/ralph-plugin/scripts/*.sh ~/bin/ 2>/dev/null || true\n\
 chmod +x ~/bin/*.sh 2>/dev/null || true\n\
+cp /opt/ralph-plugin/plugin/settings.json ~/.claude/settings.json 2>/dev/null || true\n\
 exec "$@"\n' > /usr/local/bin/ralph-entrypoint.sh && chmod 755 /usr/local/bin/ralph-entrypoint.sh
 
 USER agent

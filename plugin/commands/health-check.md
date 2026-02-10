@@ -55,6 +55,24 @@ Check project has:
 - [ ] Lint command defined (`lint`, `check`, etc.)
 - [ ] Build command defined (if applicable)
 
+### Feedback Loop Permissions
+
+Check that every feedback loop command from the plan's CLAUDE.md is allowed in permissions:
+
+1. Read the plan's CLAUDE.md and find the `## Feedback Loops` section
+2. Extract each command listed (e.g., `bun run typecheck`, `bun run lint`, `bun run test`)
+3. Read `.claude/settings.local.json` (project-level) and `~/.claude/settings.json` (user-level)
+4. For each feedback loop command, check if a matching `Bash(...)` permission exists in either file's `permissions.allow` array
+   - Exact match: `Bash(bun run typecheck)` matches `bun run typecheck`
+   - Wildcard match: `Bash(bun run *)` matches `bun run typecheck`
+5. Report ✓/✗ for each command
+6. If any are missing, offer to add them to `.claude/settings.local.json`
+
+**Auto-fix behavior**: When missing permissions are found, ask the user "Want me to add the missing feedback loop permissions to `.claude/settings.local.json`?" If yes:
+- Read current `.claude/settings.local.json` (or create `{"permissions":{"allow":[]}}` if absent)
+- Add a `Bash(<command>)` entry for each missing feedback loop command
+- Write the updated file
+
 ## Execution
 
 **Step 1: Find Plans**
@@ -79,7 +97,15 @@ For each plan directory:
 cat package.json | jq '.scripts | keys'
 ```
 
-**Step 4: Report**
+**Step 4: Check Feedback Loop Permissions**
+
+1. Parse the plan's CLAUDE.md for the `## Feedback Loops` section
+2. Extract each command (lines that look like shell commands, e.g., `bun run typecheck`)
+3. Read `.claude/settings.local.json` and `~/.claude/settings.json`
+4. Check each command against `permissions.allow` entries
+5. If any are missing, offer to add them
+
+**Step 5: Report**
 
 Output a health report:
 
@@ -117,6 +143,11 @@ Output a health report:
 ✓ lint command: bun run lint
 ✓ build command: bun run build
 
+### Feedback Loop Permissions
+✓ bun run typecheck — allowed
+✓ bun run lint — allowed
+✗ bun run test — not in permissions
+
 ## Summary
 - 1 issue found
 - Recommendation: Add promise tag instructions to CLAUDE.md
@@ -135,6 +166,7 @@ For each issue found, provide a fix suggestion:
 | No feedback loops | Add `## Feedback Loops` section |
 | Invalid prd.json | Show specific validation errors |
 | `passes` is not a boolean | Change `"passes": [...]` to `"passes": false` or `"passes": true` |
+| Feedback loop command not in permissions | Offer to add `Bash(<command>)` entries to `.claude/settings.local.json` |
 
 ## Usage
 
