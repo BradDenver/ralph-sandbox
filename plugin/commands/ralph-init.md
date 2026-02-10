@@ -101,7 +101,7 @@ echo "Launching sandbox for plan: $PLAN_NAME"
 echo ""
 
 # Run claude inside sandbox
-exec docker sandbox run --template "$TEMPLATE" "$PROJECT_DIR" claude --permission-mode acceptEdits "$PROMPT"
+exec docker sandbox run --template "$TEMPLATE" -w "$PROJECT_DIR" claude --permission-mode acceptEdits "$PROMPT"
 ```
 
 **Step 3: Create sandbox.sh**
@@ -115,7 +115,7 @@ set -e
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TEMPLATE="${RALPH_TEMPLATE:-ralph-sandbox}"
 echo "Launching sandbox: $TEMPLATE"
-exec docker sandbox run --template "$TEMPLATE" "$PROJECT_DIR" "${@:-claude}"
+exec docker sandbox run --template "$TEMPLATE" -w "$PROJECT_DIR" "${@:-claude}"
 ```
 
 **Step 4: Make executable**
