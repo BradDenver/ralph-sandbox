@@ -112,7 +112,12 @@ fi
 PLAN_PATH="$PLANS_DIR/$PLAN_NAME"
 
 # Build file references for Claude
-FILE_REFS="@plans/$PLAN_NAME/CLAUDE.md @plans/$PLAN_NAME/prd.json @plans/$PLAN_NAME/progress.txt"
+FILE_REFS="@plans/$PLAN_NAME/CLAUDE.md @plans/$PLAN_NAME/prd.json"
+
+# Add learnings.md if it exists
+if [[ -f "$PLAN_PATH/learnings.md" ]]; then
+  FILE_REFS="$FILE_REFS @plans/$PLAN_NAME/learnings.md"
+fi
 
 # Add optional files if they exist
 for optional in PLAN.md DESIGN.md API.md; do
@@ -126,7 +131,7 @@ PROMPT="$FILE_REFS You are implementing this project using the Ralph Wiggum tech
 
 YOUR TASK:
 1. Read the documentation files provided above carefully
-2. Read progress.txt to understand what has been done
+2. Read learnings.md (if it exists) for prior decisions and gotchas
 3. Choose the highest-priority task with passes: false
    Priority order:
    - FIRST: Tasks with a 'priority' key (lower number = higher priority)
@@ -139,7 +144,7 @@ YOUR TASK:
 6. Run ALL feedback loops before committing
 7. When the task is complete and ALL verification steps pass:
    - Update prd.json to set passes: true
-   - Append to progress.txt: task completed, decisions made, files changed
+   - If there are notable decisions, failed approaches, gotchas, or new packages — append to learnings.md. Skip if the task was straightforward.
    - Propose a commit with a descriptive message
 8. After the commit:
    - Output the appropriate promise tag

@@ -72,7 +72,7 @@ fi
 
 # Build file references
 FILES="@plans/$PLAN_NAME/CLAUDE.md @plans/$PLAN_NAME/prd.json"
-[[ -f "$PLANS_DIR/$PLAN_NAME/progress.txt" ]] && FILES="$FILES @plans/$PLAN_NAME/progress.txt"
+[[ -f "$PLANS_DIR/$PLAN_NAME/learnings.md" ]] && FILES="$FILES @plans/$PLAN_NAME/learnings.md"
 [[ -f "$PLANS_DIR/$PLAN_NAME/PLAN.md" ]] && FILES="$FILES @plans/$PLAN_NAME/PLAN.md"
 [[ -f "$PROJECT_DIR/CLAUDE.md" ]] && FILES="$FILES @CLAUDE.md"
 

@@ -87,17 +87,17 @@ mkdir -p plans/{name}
 - `plans/{name}/DESIGN.md` - Visual specification (if created)
 - `plans/{name}/API.md` - API endpoints documentation (if created)
 - `plans/{name}/prd.json` - Feature list with verification steps
-- `plans/{name}/progress.txt` - Progress log from previous sessions
+- `plans/{name}/learnings.md` - Decisions, failed approaches, gotchas
 
 ## Quick Start
 1. Read ALL documentation files above before starting
 2. Read prd.json to see all features
-3. Read progress.txt for context from previous sessions
+3. Read learnings.md (if it exists) for prior decisions and gotchas
 4. Pick ONE feature to work on (highest priority with passes: false, by category order)
 5. Complete all verification steps for that feature
 6. Update prd.json passes to true
 7. Commit with descriptive message
-8. Log learnings to progress.txt
+8. If there are notable decisions, failed approaches, gotchas, or new packages — append to learnings.md
 
 ## Tech Stack
 {tech_stack_from_user_input}
@@ -176,7 +176,7 @@ When running via ralph.sh, you MUST output one of these promises before finishin
 <promise>BLOCKED</promise>
 ```
 
-Always log blockers to progress.txt before outputting BLOCKED.
+Always log blockers to learnings.md before outputting BLOCKED.
 ```
 
 **For Feature Plan (Inherits from existing)** - Generate a simplified CLAUDE.md:
@@ -194,7 +194,7 @@ For tech stack, testing requirements, feedback loops, and quality expectations, 
 - `plans/{name}/DESIGN.md` - Visual specification for this feature (if created)
 - `plans/{name}/API.md` - API endpoints for this feature (if created)
 - `plans/{name}/prd.json` - Feature list with verification steps
-- `plans/{name}/progress.txt` - Progress log for this feature
+- `plans/{name}/learnings.md` - Decisions, failed approaches, gotchas
 
 ## Feature Description
 {feature_description}
@@ -206,12 +206,12 @@ For tech stack, testing requirements, feedback loops, and quality expectations, 
 1. Read the parent plan's CLAUDE.md for project-wide settings
 2. Read ALL documentation files in this plan folder
 3. Read prd.json to see all tasks for this feature
-4. Read progress.txt for context from previous sessions
+4. Read learnings.md (if it exists) for prior decisions and gotchas
 5. Pick ONE task to work on (highest priority with passes: false)
 6. Complete all verification steps for that task
 7. Update prd.json passes to true
 8. Commit with descriptive message
-9. Log learnings to progress.txt
+9. If there are notable decisions, failed approaches, gotchas, or new packages — append to learnings.md
 
 ## Rules
 - **Never remove or modify features in prd.json** (only change passes field)
@@ -246,26 +246,44 @@ Create an empty array:
 []
 ```
 
-### 5.4 Create progress.txt
+### 5.4 Create learnings.md
 
 For first plan:
-```text
-# Progress Log for {Plan Name}
+```markdown
+# Learnings
 
 ## Plan Created - {current_date}
-- Project: {project_description}
-- Tech Stack: {tech_stack}
-- Ready for first feature implementation
+- {project_description}
 ```
 
 For feature plan:
-```text
-# Progress Log for {Plan Name}
+```markdown
+# Learnings
 
 ## Plan Created - {current_date}
-- Feature: {feature_description}
-- Parent plan: plans/{parent_plan}
-- Ready for first task implementation
+- {feature_description} (parent: plans/{parent_plan})
+```
+
+Only include sections that have content. If a task had no notable decisions/gotchas/failures, skip the learnings.md update entirely.
+
+Entry template for future tasks:
+```markdown
+---
+
+## {task description}
+**Task:** {task-id} | **Date:** {date}
+
+**Decisions:**
+- {why approach X over Y}
+
+**Failed approaches:**
+- {what was tried and why it didn't work}
+
+**Gotchas:**
+- {library quirks, version issues, non-obvious behavior}
+
+**Installed:**
+- {packages added, tools configured}
 ```
 
 ### 5.5 Create optional documentation scaffolds (if requested)

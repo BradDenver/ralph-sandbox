@@ -45,7 +45,7 @@ Claude outputs these to signal iteration status:
 Projects using Ralph have a `plans/<name>/` folder with:
 - `CLAUDE.md` - Project-specific guidance
 - `prd.json` - Task definitions with status tracking
-- `progress.txt` - Cross-session learnings
+- `learnings.md` - Decisions, failed approaches, gotchas
 
 ### Execution Modes
 - `/ralph-once` - Single task, user approves commits

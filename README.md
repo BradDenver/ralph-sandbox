@@ -58,7 +58,7 @@ docker sandbox run --template ralph-sandbox /path/to/project claude
 | `/code-review` | Run code review on changes |
 | `/build-fix` | Fix build/lint/type errors |
 | `/verify` | Run verification loop |
-| `/learn` | Capture learnings to progress.txt |
+| `/learn` | Capture learnings to learnings.md |
 | `/refactor-clean` | Refactor and clean code |
 
 ## Project Scripts (after /ralph-init)
@@ -77,7 +77,7 @@ your-project/
 │   └── <plan-name>/
 │       ├── CLAUDE.md      # Project guidance (required)
 │       ├── prd.json       # Task definitions (required)
-│       ├── progress.txt   # Session learnings (required)
+│       ├── learnings.md    # Decisions & context (optional)
 │       ├── PLAN.md        # Implementation overview (optional)
 │       ├── DESIGN.md      # Visual specs (optional)
 │       └── API.md         # API docs (optional)

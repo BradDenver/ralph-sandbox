@@ -17,7 +17,7 @@ If only one plan exists, use that one automatically.
 Before making any changes:
 1. Use Explore agents to understand relevant code areas
 2. Read existing files that will be modified
-3. Read `plans/<plan>/progress.txt` for learnings from similar past implementations
+3. Read `plans/<plan>/learnings.md` for prior decisions and gotchas
 4. Use AskUserQuestion to clarify ambiguous requirements
 5. Do NOT make any edits yet
 
@@ -81,7 +81,7 @@ The PRD must be self-contained and unambiguous for automated implementation.
 - Implements following the steps exactly
 - Runs `bun run test:all` (typecheck, lint, unit tests, E2E, build)
 - Updates `passes: true` and commits
-- Logs learnings to progress.txt
+- Logs notable decisions to learnings.md (if any)
 - Outputs `<promise>FEATURE_COMPLETE</promise>` when done
 
 ### PRD items MUST include:
@@ -112,7 +112,7 @@ The PRD must be self-contained and unambiguous for automated implementation.
 - Steps that depend on human judgment
 
 ### Reference past implementations:
-Check progress.txt for similar features. If a past session solved a related problem,
+Check learnings.md for similar features. If a past session solved a related problem,
 reference the learnings. Example: "Similar to Session 47 approach for formatMetricValue"
 
 ## Step 5: Add to prd.json

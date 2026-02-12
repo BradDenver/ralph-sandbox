@@ -14,7 +14,7 @@ Verify a project has everything needed for Ralph workflows.
 |------|---------|----------|
 | `plans/<name>/CLAUDE.md` | Project guidance | ✓ |
 | `plans/<name>/prd.json` | Task definitions | ✓ |
-| `plans/<name>/progress.txt` | Session learnings | ✓ |
+| `plans/<name>/learnings.md` | Decisions & context | Optional |
 
 ### Optional Files
 
@@ -117,7 +117,7 @@ Output a health report:
 ### Required Files
 ✓ CLAUDE.md exists
 ✓ prd.json exists
-✓ progress.txt exists
+✓ learnings.md exists (optional)
 
 ### Optional Files
 ✓ PLAN.md exists
@@ -161,7 +161,7 @@ For each issue found, provide a fix suggestion:
 |-------|-----|
 | Missing CLAUDE.md | Run `/new-plan` to create plan structure |
 | Missing prd.json | Run `/plan-prd` to create first task |
-| Missing progress.txt | Create empty file with header |
+| Missing learnings.md | Optional — created when there are notable decisions to record |
 | No tech stack | Add `## Tech Stack` section to CLAUDE.md |
 | No feedback loops | Add `## Feedback Loops` section |
 | Invalid prd.json | Show specific validation errors |
