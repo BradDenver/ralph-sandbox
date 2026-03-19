@@ -97,7 +97,7 @@ mkdir -p plans/{name}
 5. Complete all verification steps for that feature
 6. Update prd.json passes to true
 7. Commit with descriptive message
-8. If there are notable decisions, failed approaches, gotchas, or new packages — append to learnings.md
+8. If there are notable decisions, failed approaches, gotchas, or new packages — append to learnings.md using the entry template (see learnings.md for format)
 
 ## Tech Stack
 {tech_stack_from_user_input}
@@ -211,7 +211,7 @@ For tech stack, testing requirements, feedback loops, and quality expectations, 
 6. Complete all verification steps for that task
 7. Update prd.json passes to true
 8. Commit with descriptive message
-9. If there are notable decisions, failed approaches, gotchas, or new packages — append to learnings.md
+9. If there are notable decisions, failed approaches, gotchas, or new packages — append to learnings.md using the entry template (see learnings.md for format)
 
 ## Rules
 - **Never remove or modify features in prd.json** (only change passes field)
@@ -266,11 +266,11 @@ For feature plan:
 
 Only include sections that have content. If a task had no notable decisions/gotchas/failures, skip the learnings.md update entirely.
 
-Entry template for future tasks:
+Entry template for future tasks (IMPORTANT — follow this structure exactly):
 ```markdown
 ---
 
-## {task description}
+## {task title from prd.json}
 **Task:** {task-id} | **Date:** {date}
 
 **Decisions:**
@@ -285,6 +285,13 @@ Entry template for future tasks:
 **Installed:**
 - {packages added, tools configured}
 ```
+
+Rules for learnings entries:
+- The `## heading` MUST use the task title from prd.json (not a short name or abbreviation)
+- The `**Task:**` line MUST include the `id` field from prd.json — this is used by `/ralph-plan-log` to match entries to tasks
+- Only include the sections (Decisions, Failed approaches, Gotchas, Installed) that have content — omit empty sections
+- Each bullet should be specific and useful to a future session — not generic observations
+- Categorise information correctly: a choice between approaches is a Decision, a surprising behaviour is a Gotcha
 
 ### 5.5 Create optional documentation scaffolds (if requested)
 
