@@ -21,7 +21,18 @@ pwd
 
 Derive sandbox name: `ralph-<workspace-dirname>`.
 
-### Step 2: Check if Sandbox Already Exists
+### Step 2: Ensure .syncignore Exists
+
+Always run this step (even if sandbox already exists). Prevents platform-specific artifacts (Linux `node_modules/`) from syncing back to the host (macOS).
+
+```bash
+touch .syncignore
+grep -qxF '**/node_modules' .syncignore || echo '**/node_modules' >> .syncignore
+grep -qxF '.pnpm-store' .syncignore || echo '.pnpm-store' >> .syncignore
+cat .syncignore
+```
+
+### Step 3: Check if Sandbox Already Exists
 
 ```bash
 docker sandbox ls 2>/dev/null | grep "ralph-<workspace-dirname>"
@@ -29,7 +40,7 @@ docker sandbox ls 2>/dev/null | grep "ralph-<workspace-dirname>"
 
 If sandbox already exists, tell the user and check auth status instead of creating a new one.
 
-### Step 3: Verify Template Image
+### Step 4: Verify Template Image
 
 ```bash
 docker images ralph-template:latest --format '{{.Repository}}:{{.Tag}}'
@@ -42,27 +53,11 @@ If the image doesn't exist, tell the user:
 > docker build -t ralph-template:latest -f docker/Dockerfile .
 > ```
 
-### Step 4: Create Sandbox
+### Step 5: Create Sandbox
 
 ```bash
 docker sandbox create --name ralph-<workspace-dirname> -t ralph-template:latest claude "$(pwd)"
 ```
-
-### Step 5: Ensure .syncignore Exists
-
-Create or update `.syncignore` in the workspace root so platform-specific artifacts don't sync back from the sandbox (Linux) to the host (macOS). This prevents broken `node_modules/` after sandbox sessions.
-
-```bash
-touch .syncignore
-```
-
-Ensure these patterns are present (append any that are missing):
-```
-**/node_modules
-.pnpm-store
-```
-
-Do NOT overwrite the file — it may contain user-added patterns. Only append missing lines.
 
 ### Step 6: Check Authentication
 

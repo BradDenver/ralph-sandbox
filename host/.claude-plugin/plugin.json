@@ -1,6 +1,6 @@
 {
   "name": "ralph-host",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "Ralph Host - Orchestrates Docker sandbox lifecycle for ralph-once sessions",
   "author": {
     "name": "Brad"
