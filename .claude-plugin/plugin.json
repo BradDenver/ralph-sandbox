@@ -2,8 +2,9 @@
   "name": "ralph-sandbox",
   "version": "1.0.0",
   "description": "Ralph Sandbox - Autonomous coding loops with Docker AI Sandboxes",
-  "author": "Brad",
-  "homepage": "",
+  "author": {
+    "name": "Brad"
+  },
   "skills": [
     "./plugin/skills/"
   ],

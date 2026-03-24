@@ -1,12 +1,8 @@
-# Ralph Sandbox Template
-# Extends the official Claude Code sandbox with ralph-sandbox plugin pre-installed
+# Ralph Sandbox Template (Shape E)
+# Extends the official Claude Code sandbox with ralph plugin pre-installed.
+# tmux runs on the HOST, not inside the sandbox.
 
 FROM docker/sandbox-templates:claude-code
-
-USER agent
-
-# Update Claude Code to latest (must run as agent — claude installs to ~/.local/bin/)
-RUN curl -fsSL https://claude.ai/install.sh | bash
 
 USER root
 
@@ -23,13 +19,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 RUN npx playwright install chromium
 
-# Copy plugin to staging location
+# Reinstall Claude Code via native installer to get current version
+# The base image's install leaves method as 'unknown', breaking `claude update`.
+# Native installer sets up proper config so future updates work at runtime.
+USER agent
+RUN curl -fsSL https://claude.ai/install.sh | bash
+USER root
+
+# Copy plugin to staging location (entrypoint copies to ~/.claude/ on startup)
 COPY .claude-plugin /opt/ralph-plugin/.claude-plugin
 COPY plugin /opt/ralph-plugin/plugin
 COPY scripts /opt/ralph-plugin/scripts
 RUN chmod -R a+r /opt/ralph-plugin/
 
-# Create entrypoint script
+# Create entrypoint that installs plugin after volumes are mounted
 RUN printf '#!/bin/bash\n\
 mkdir -p ~/.claude/commands ~/.claude/skills ~/.claude/agents ~/.claude/rules\n\
 cp -r /opt/ralph-plugin/plugin/commands/* ~/.claude/commands/ 2>/dev/null || true\n\
@@ -40,7 +43,10 @@ mkdir -p ~/bin\n\
 cp /opt/ralph-plugin/scripts/*.sh ~/bin/ 2>/dev/null || true\n\
 chmod +x ~/bin/*.sh 2>/dev/null || true\n\
 cp /opt/ralph-plugin/plugin/settings.json ~/.claude/settings.json 2>/dev/null || true\n\
+# Keep pnpm store outside workspace so it does not sync back to host\n\
+echo "store-dir=/home/agent/.pnpm-store" > ~/.npmrc\n\
 exec "$@"\n' > /usr/local/bin/ralph-entrypoint.sh && chmod 755 /usr/local/bin/ralph-entrypoint.sh
+
 
 USER agent
 

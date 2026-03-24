@@ -1,0 +1,13 @@
+{
+  "name": "ralph-host",
+  "owner": {
+    "name": "Brad"
+  },
+  "plugins": [
+    {
+      "name": "ralph-host",
+      "description": "Ralph Host - Orchestrates Docker sandbox lifecycle for ralph-once sessions",
+      "source": "./"
+    }
+  ]
+}
